@@ -1,5 +1,14 @@
 import sys
 
+#prints out results of the comparison
+def reportStats(error,line_counter,report):
+	print("#####################################")
+	line_info = "Lines Compared: " + str(line_counter)
+	error_info = "Errors Found: " + str(error)
+	print(line_info)
+	print(error_info)
+
+#compares the files line by line
 def compare(answers,output, report):
 	line_counter = 0
 	errors = 0
@@ -34,6 +43,10 @@ def compare(answers,output, report):
 			line_counter += 1
 			line2 = line2.readline()
 
+	return (errors,line_counter)
+
+
+
 #takes in two files one of known answers and other of produced output
 #answers and output are both one per line
 def main():
@@ -48,5 +61,5 @@ def main():
 	#open a new file to write the differences to
 	report = open("report.txt", 'w')
 
-	compare(file1,file2,report)
-
+	results = compare(file1,file2,report)
+	reportStats(results[0],results[1],report)
